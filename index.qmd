@@ -291,33 +291,11 @@ This requires two things:
 1.  find the element
 2.  click on it
 
-<br>
-
-**How to find an element?**
-
--   Humans -> eyes
-
--   Computers -> HTML/CSS
-
----
-
-To find the element, we need to open the console to see the structure of
-the page:
-
--   right-click -> "Inspect"
--   or `Ctrl` + `Shift` + `C`
-
-. . .
-
-![](img/console.png){width="75%"}
-
 ---
 
 <br>
 
-Then, hover the element we're interested in: the link "Contributors".
-
-<br>
+1. Find the element
 
 ![](img/console_2.png)
 
@@ -357,6 +335,18 @@ How can we find this link with `RSelenium`?
 :::
 :::
 
+
+---
+
+<br>
+
+2. Click it:
+
+```{r}
+remote_driver$
+  findElement("link text", "Contributors")$
+  clickElement()
+```
 
 ---
 
@@ -415,28 +405,6 @@ Let's now dive into a more complex example, where RSelenium is the only
 way to obtain the data.
 
 
-## Before using RSelenium
-
-<br>
-
-Using Selenium is **slower** than using "classic" scraping methods, so
-it's important to check all possibilities before using it.
-
-<br>
-
-. . .
-
-Use Selenium if:
-
--   the HTML you want is not directly accessible, i.e needs some
-    interactions (clicking on a button, connect to a website...),
-
--   the URL doesn't change with the inputs,
-
--   you can't access the data directly in the "network" tab of the
-    console and you can't reproduce the `POST` request.
-
-
 ## Example: Sao Paulo immigration museum
 
 <br>
@@ -447,16 +415,6 @@ Use Selenium if:
 
 Steps:
 
-1. list all interactions we need to do
-1. make an example
-1. generalize the code
-
-
-
-## List all interactions
-
-<br><br>
-
 1. Open the website
 1. Enter "PORTUGUESA" in the input box
 1. Wait a bit for the page to load
@@ -466,7 +424,7 @@ Steps:
 
 ## Make an example {auto-animate=true}
 
-Initiate the remote driver and go to the website:
+Initialize the remote driver and go to the website:
 
 ```{r}
 library(RSelenium)
@@ -474,7 +432,7 @@ library(RSelenium)
 link <- "http://www.inci.org.br/acervodigital/livros.php"
 
 # Automatically go the website
-driver <- rsDriver(browser = c("firefox"))
+driver <- rsDriver(browser = c("firefox"), chromever = NULL)
 remote_driver <- driver[["client"]]
 remote_driver$navigate(link)
 ```
@@ -490,7 +448,7 @@ library(RSelenium)
 link <- "http://www.inci.org.br/acervodigital/livros.php"
 
 # Automatically go the website
-driver <- rsDriver(browser = c("firefox"))
+driver <- rsDriver(browser = c("firefox"), chromever = NULL)
 remote_driver <- driver[["client"]]
 remote_driver$navigate(link)
 
@@ -510,7 +468,7 @@ library(RSelenium)
 link <- "http://www.inci.org.br/acervodigital/livros.php"
 
 # Automatically go the website
-driver <- rsDriver(browser = c("firefox"))
+driver <- rsDriver(browser = c("firefox"), chromever = NULL)
 remote_driver <- driver[["client"]]
 remote_driver$navigate(link)
 
@@ -536,7 +494,7 @@ library(RSelenium)
 link <- "http://www.inci.org.br/acervodigital/livros.php"
 
 # Automatically go the website
-driver <- rsDriver(browser = c("firefox"))
+driver <- rsDriver(browser = c("firefox"), chromever = NULL)
 remote_driver <- driver[["client"]]
 remote_driver$navigate(link)
 
@@ -567,7 +525,7 @@ library(RSelenium)
 link <- "http://www.inci.org.br/acervodigital/livros.php"
 
 # Automatically go the website
-driver <- rsDriver(browser = c("firefox"))
+driver <- rsDriver(browser = c("firefox"), chromever = NULL)
 remote_driver <- driver[["client"]]
 remote_driver$navigate(link)
 
@@ -601,7 +559,7 @@ library(RSelenium)
 link <- "http://www.inci.org.br/acervodigital/livros.php"
 
 # Automatically go the website
-driver <- rsDriver(browser = c("firefox"))
+driver <- rsDriver(browser = c("firefox"), chromever = NULL)
 remote_driver <- driver[["client"]]
 remote_driver$navigate(link)
 
@@ -658,11 +616,6 @@ If everything goes well, we have collected a lot of `.html` files.
 To clean them, we don't need `RSelenium` or an internet connection. These are just
 text files, they are not "tied" to the website anymore.
 
-<br>
-
-It is also useful to keep them for reproducibility (same as when you keep the 
-raw datasets in your project).
-
 
 
 # Summary
@@ -674,45 +627,15 @@ raw datasets in your project).
 1. `Selenium` in general is a very useful tool but should be used as a last resort:
 
   * APIs, packages
-  * static webscraping
+  * static webscraping is usually faster
   * custom `POST` requests
 
 . . .
 
-2. In my (limited) experience:
+2. Extensions:
 
-  * 1/4 of the time is spent on making a small example work;
-  * 1/4 of the time is spent on generalising this example (loops, etc.)
-  * **1/2** of the time is spent on debugging.
-  
-<br>
-
-. . .
-
-***Catching errors and recording the scraping process IS important.***
-
-
-## Parallelization
-
-<br>
-
-Use parallelization to open several browsers at the same time and scrape the data
-faster.
-
-<br>
-
-{{< fa triangle-exclamation >}} &nbsp; I never tested this, and there could be some
-issues (browser crashes, etc.)
-
-
-<br>
-
-If you want to explore it:
-
-* [article by Appsilon](https://appsilon.com/webscraping-dynamic-websites-with-r/){.external target="_blank"} (at the end)
-
-* [article by Ivan Millanes](https://ivanmillanes.netlify.app/post/2020-06-30-webscraping-with-rselenium-and-rvest/#parallel-framework){.external target="_blank"}
-
+  * parallelize `RSelenium` with [`parsel`](https://github.com/till-tietz/parsel){.external target="_blank"} (**never tried**)
+  * there's [some WIP](https://github.com/tidyverse/rvest/pull/362){.external target="_blank"} in `rvest` to enable this kind of dynamic scraping
 
 
 ## Ethics
@@ -747,7 +670,8 @@ For static webscraping, check out the package [`polite`](https://dmi3kno.github.
 :::
 
 
-# Good resources
+
+## Good resources
 
 <br>
 
@@ -765,8 +689,11 @@ Article from Ivan Millanes:
 # Thanks!
 
 <br>
+<br>
 
-More complete presentation (100+ slides): [https://www.rselenium-teaching.etiennebacher.com](https://www.rselenium-teaching.etiennebacher.com){.external target="_blank"}:
+More complete presentation (100+ slides):
+
+[https://www.rselenium-teaching.etiennebacher.com](https://www.rselenium-teaching.etiennebacher.com){.external target="_blank"}:
 
 * `RSelenium` installation issues
 * error handling
@@ -777,7 +704,7 @@ More complete presentation (100+ slides): [https://www.rselenium-teaching.etienn
 
 
 
-# Appendix
+# Appendix {.appendix}
 
 ## Appendix {#contributors-results}
 

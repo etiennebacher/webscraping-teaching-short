@@ -7,9 +7,7 @@
 <link href="index_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="index_files/libs/quarto-html/light-border.css" rel="stylesheet">
 <link href="index_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
-<link href="index_files/libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="stylesheet" id="quarto-text-highlighting-styles">
-<link href="index_files/libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
-<link href="index_files/libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet"><meta charset="utf-8">
+<link href="index_files/libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.3.247">
 
   <meta name="author" content="Etienne Bacher">
@@ -653,29 +651,13 @@ Etienne Bacher
 <li>find the element</li>
 <li>click on it</li>
 </ol>
-<p><br></p>
-<p><strong>How to find an element?</strong></p>
-<ul>
-<li><p>Humans -&gt; eyes</p></li>
-<li><p>Computers -&gt; HTML/CSS</p></li>
-</ul>
-</section>
-<section class="slide level2">
-
-<p>To find the element, we need to open the console to see the structure of the page:</p>
-<ul>
-<li>right-click -&gt; “Inspect”</li>
-<li>or <code>Ctrl</code> + <code>Shift</code> + <code>C</code></li>
-</ul>
-<div class="fragment">
-<p><img data-src="img/console.png" style="width:75.0%"></p>
-</div>
 </section>
 <section class="slide level2">
 
 <p><br></p>
-<p>Then, hover the element we’re interested in: the link “Contributors”.</p>
-<p><br></p>
+<ol type="1">
+<li>Find the element</li>
+</ol>
 
 <img data-src="img/console_2.png" class="r-stretch"></section>
 <section class="slide level2">
@@ -711,6 +693,18 @@ Etienne Bacher
 </section>
 <section class="slide level2">
 
+<p><br></p>
+<ol start="2" type="1">
+<li>Click it:</li>
+</ol>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>remote_driver<span class="sc">$</span></span>
+<span id="cb6-2"><a href="#cb6-2"></a>  <span class="fu">findElement</span>(<span class="st">"link text"</span>, <span class="st">"Contributors"</span>)<span class="sc">$</span></span>
+<span id="cb6-3"><a href="#cb6-3"></a>  <span class="fu">clickElement</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section class="slide level2">
+
 <p>We are now on the right page!</p>
 
 <img data-src="img/contributors.png" class="r-stretch"></section>
@@ -719,14 +713,14 @@ Etienne Bacher
 <p><br><br></p>
 <p>Last step: obtain the HTML of the page.</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1"></a>remote_driver<span class="sc">$</span><span class="fu">getPageSource</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>remote_driver<span class="sc">$</span><span class="fu">getPageSource</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><br></p>
 <div class="fragment">
 <p>To read it with the package <code>rvest</code>:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1"></a>x <span class="ot">&lt;-</span> remote_driver<span class="sc">$</span><span class="fu">getPageSource</span>()[[<span class="dv">1</span>]]</span>
-<span id="cb7-2"><a href="#cb7-2"></a>rvest<span class="sc">::</span><span class="fu">read_html</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>x <span class="ot">&lt;-</span> remote_driver<span class="sc">$</span><span class="fu">getPageSource</span>()[[<span class="dv">1</span>]]</span>
+<span id="cb8-2"><a href="#cb8-2"></a>rvest<span class="sc">::</span><span class="fu">read_html</span>(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p><br></p>
 <p>Click <a href="#/contributors-results">here</a> to see the results.</p>
@@ -743,25 +737,11 @@ Etienne Bacher
 <p>The previous example was not a <em>dynamic</em> page: we could have used the link to the page and apply webscraping methods for static webpages.</p>
 <p><br></p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1"></a>rvest<span class="sc">::</span><span class="fu">read_html</span>(<span class="st">"https://www.r-project.org/contributors.html"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1"></a>rvest<span class="sc">::</span><span class="fu">read_html</span>(<span class="st">"https://www.r-project.org/contributors.html"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="fragment">
 <p><br></p>
 <p>Let’s now dive into a more complex example, where RSelenium is the only way to obtain the data.</p>
-</div>
-</section>
-<section id="before-using-rselenium" class="slide level2">
-<h2>Before using RSelenium</h2>
-<p><br></p>
-<p>Using Selenium is <strong>slower</strong> than using “classic” scraping methods, so it’s important to check all possibilities before using it.</p>
-<p><br></p>
-<div class="fragment">
-<p>Use Selenium if:</p>
-<ul>
-<li><p>the HTML you want is not directly accessible, i.e needs some interactions (clicking on a button, connect to a website…),</p></li>
-<li><p>the URL doesn’t change with the inputs,</p></li>
-<li><p>you can’t access the data directly in the “network” tab of the console and you can’t reproduce the <code>POST</code> request.</p></li>
-</ul>
 </div>
 </section>
 <section id="example-sao-paulo-immigration-museum" class="slide level2">
@@ -771,15 +751,6 @@ Etienne Bacher
 <p><br></p>
 <p>Steps:</p>
 <ol type="1">
-<li>list all interactions we need to do</li>
-<li>make an example</li>
-<li>generalize the code</li>
-</ol>
-</section>
-<section id="list-all-interactions" class="slide level2">
-<h2>List all interactions</h2>
-<p><br><br></p>
-<ol type="1">
 <li>Open the website</li>
 <li>Enter “PORTUGUESA” in the input box</li>
 <li>Wait a bit for the page to load</li>
@@ -788,66 +759,44 @@ Etienne Bacher
 </section>
 <section id="make-an-example" class="slide level2" data-auto-animate="true">
 <h2 data-id="quarto-animate-title">Make an example</h2>
-<p>Initiate the remote driver and go to the website:</p>
+<p>Initialize the remote driver and go to the website:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb9-1" class="hljs-ln-code"><a href="#cb9-1"></a><span class="fu">library</span>(RSelenium)</span>
-<span id="cb9-2" class="hljs-ln-code"><a href="#cb9-2"></a></span>
-<span id="cb9-3" class="hljs-ln-code"><a href="#cb9-3"></a>link <span class="ot">&lt;-</span> <span class="st">"http://www.inci.org.br/acervodigital/livros.php"</span></span>
-<span id="cb9-4" class="hljs-ln-code"><a href="#cb9-4"></a></span>
-<span id="cb9-5" class="hljs-ln-code"><a href="#cb9-5"></a><span class="co"># Automatically go the website</span></span>
-<span id="cb9-6" class="hljs-ln-code"><a href="#cb9-6"></a>driver <span class="ot">&lt;-</span> <span class="fu">rsDriver</span>(<span class="at">browser =</span> <span class="fu">c</span>(<span class="st">"firefox"</span>))</span>
-<span id="cb9-7" class="hljs-ln-code"><a href="#cb9-7"></a>remote_driver <span class="ot">&lt;-</span> driver[[<span class="st">"client"</span>]]</span>
-<span id="cb9-8" class="hljs-ln-code"><a href="#cb9-8"></a>remote_driver<span class="sc">$</span><span class="fu">navigate</span>(link)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb10-1" class="hljs-ln-code"><a href="#cb10-1"></a><span class="fu">library</span>(RSelenium)</span>
+<span id="cb10-2" class="hljs-ln-code"><a href="#cb10-2"></a></span>
+<span id="cb10-3" class="hljs-ln-code"><a href="#cb10-3"></a>link <span class="ot">&lt;-</span> <span class="st">"http://www.inci.org.br/acervodigital/livros.php"</span></span>
+<span id="cb10-4" class="hljs-ln-code"><a href="#cb10-4"></a></span>
+<span id="cb10-5" class="hljs-ln-code"><a href="#cb10-5"></a><span class="co"># Automatically go the website</span></span>
+<span id="cb10-6" class="hljs-ln-code"><a href="#cb10-6"></a>driver <span class="ot">&lt;-</span> <span class="fu">rsDriver</span>(<span class="at">browser =</span> <span class="fu">c</span>(<span class="st">"firefox"</span>), <span class="at">chromever =</span> <span class="cn">NULL</span>)</span>
+<span id="cb10-7" class="hljs-ln-code"><a href="#cb10-7"></a>remote_driver <span class="ot">&lt;-</span> driver[[<span class="st">"client"</span>]]</span>
+<span id="cb10-8" class="hljs-ln-code"><a href="#cb10-8"></a>remote_driver<span class="sc">$</span><span class="fu">navigate</span>(link)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="make-an-example-1" class="slide level2" data-auto-animate="true">
 <h2 data-id="quarto-animate-title">Make an example</h2>
 <p>Fill the field “NACIONALIDADE”:</p>
-<div class="sourceCode" id="cb10" data-code-line-numbers="10-13"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb10-1" class="hljs-ln-code"><a href="#cb10-1"></a><span class="fu">library</span>(RSelenium)</span>
-<span id="cb10-2" class="hljs-ln-code"><a href="#cb10-2"></a></span>
-<span id="cb10-3" class="hljs-ln-code"><a href="#cb10-3"></a>link <span class="ot">&lt;-</span> <span class="st">"http://www.inci.org.br/acervodigital/livros.php"</span></span>
-<span id="cb10-4" class="hljs-ln-code"><a href="#cb10-4"></a></span>
-<span id="cb10-5" class="hljs-ln-code"><a href="#cb10-5"></a><span class="co"># Automatically go the website</span></span>
-<span id="cb10-6" class="hljs-ln-code"><a href="#cb10-6"></a>driver <span class="ot">&lt;-</span> <span class="fu">rsDriver</span>(<span class="at">browser =</span> <span class="fu">c</span>(<span class="st">"firefox"</span>))</span>
-<span id="cb10-7" class="hljs-ln-code"><a href="#cb10-7"></a>remote_driver <span class="ot">&lt;-</span> driver[[<span class="st">"client"</span>]]</span>
-<span id="cb10-8" class="hljs-ln-code"><a href="#cb10-8"></a>remote_driver<span class="sc">$</span><span class="fu">navigate</span>(link)</span>
-<span id="cb10-9" class="hljs-ln-code"><a href="#cb10-9"></a></span>
-<span id="cb10-10" class="hljs-ln-code"><a href="#cb10-10"></a><span class="co"># Fill the nationality field and click on "Validate"</span></span>
-<span id="cb10-11" class="hljs-ln-code"><a href="#cb10-11"></a>remote_driver<span class="sc">$</span></span>
-<span id="cb10-12" class="hljs-ln-code"><a href="#cb10-12"></a>  <span class="fu">findElement</span>(<span class="at">using =</span> <span class="st">"id"</span>, <span class="at">value =</span> <span class="st">"nacionalidade"</span>)<span class="sc">$</span></span>
-<span id="cb10-13" class="hljs-ln-code"><a href="#cb10-13"></a>  <span class="fu">sendKeysToElement</span>(<span class="fu">list</span>(<span class="st">"PORTUGUESA"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</section>
-<section id="make-an-example-2" class="slide level2" data-auto-animate="true">
-<h2 data-id="quarto-animate-title">Make an example</h2>
-<p>Find the button “Pesquisar” and click it:</p>
-<div class="sourceCode" id="cb11" data-code-line-numbers="15-18"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb11-1" class="hljs-ln-code"><a href="#cb11-1"></a><span class="fu">library</span>(RSelenium)</span>
+<div class="sourceCode" id="cb11" data-code-line-numbers="10-13"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb11-1" class="hljs-ln-code"><a href="#cb11-1"></a><span class="fu">library</span>(RSelenium)</span>
 <span id="cb11-2" class="hljs-ln-code"><a href="#cb11-2"></a></span>
 <span id="cb11-3" class="hljs-ln-code"><a href="#cb11-3"></a>link <span class="ot">&lt;-</span> <span class="st">"http://www.inci.org.br/acervodigital/livros.php"</span></span>
 <span id="cb11-4" class="hljs-ln-code"><a href="#cb11-4"></a></span>
 <span id="cb11-5" class="hljs-ln-code"><a href="#cb11-5"></a><span class="co"># Automatically go the website</span></span>
-<span id="cb11-6" class="hljs-ln-code"><a href="#cb11-6"></a>driver <span class="ot">&lt;-</span> <span class="fu">rsDriver</span>(<span class="at">browser =</span> <span class="fu">c</span>(<span class="st">"firefox"</span>))</span>
+<span id="cb11-6" class="hljs-ln-code"><a href="#cb11-6"></a>driver <span class="ot">&lt;-</span> <span class="fu">rsDriver</span>(<span class="at">browser =</span> <span class="fu">c</span>(<span class="st">"firefox"</span>), <span class="at">chromever =</span> <span class="cn">NULL</span>)</span>
 <span id="cb11-7" class="hljs-ln-code"><a href="#cb11-7"></a>remote_driver <span class="ot">&lt;-</span> driver[[<span class="st">"client"</span>]]</span>
 <span id="cb11-8" class="hljs-ln-code"><a href="#cb11-8"></a>remote_driver<span class="sc">$</span><span class="fu">navigate</span>(link)</span>
 <span id="cb11-9" class="hljs-ln-code"><a href="#cb11-9"></a></span>
 <span id="cb11-10" class="hljs-ln-code"><a href="#cb11-10"></a><span class="co"># Fill the nationality field and click on "Validate"</span></span>
 <span id="cb11-11" class="hljs-ln-code"><a href="#cb11-11"></a>remote_driver<span class="sc">$</span></span>
 <span id="cb11-12" class="hljs-ln-code"><a href="#cb11-12"></a>  <span class="fu">findElement</span>(<span class="at">using =</span> <span class="st">"id"</span>, <span class="at">value =</span> <span class="st">"nacionalidade"</span>)<span class="sc">$</span></span>
-<span id="cb11-13" class="hljs-ln-code"><a href="#cb11-13"></a>  <span class="fu">sendKeysToElement</span>(<span class="fu">list</span>(<span class="st">"PORTUGUESA"</span>))</span>
-<span id="cb11-14" class="hljs-ln-code"><a href="#cb11-14"></a></span>
-<span id="cb11-15" class="hljs-ln-code"><a href="#cb11-15"></a><span class="co"># Find the button "Pesquisar" and click it</span></span>
-<span id="cb11-16" class="hljs-ln-code"><a href="#cb11-16"></a>remote_driver<span class="sc">$</span></span>
-<span id="cb11-17" class="hljs-ln-code"><a href="#cb11-17"></a>  <span class="fu">findElement</span>(<span class="at">using =</span> <span class="st">'name'</span>, <span class="at">value =</span> <span class="st">"Reset2"</span>)<span class="sc">$</span></span>
-<span id="cb11-18" class="hljs-ln-code"><a href="#cb11-18"></a>  <span class="fu">clickElement</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb11-13" class="hljs-ln-code"><a href="#cb11-13"></a>  <span class="fu">sendKeysToElement</span>(<span class="fu">list</span>(<span class="st">"PORTUGUESA"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="make-an-example-3" class="slide level2" data-auto-animate="true">
+<section id="make-an-example-2" class="slide level2" data-auto-animate="true">
 <h2 data-id="quarto-animate-title">Make an example</h2>
-<p>Find the button “Ver Mais” and click it:</p>
-<div class="sourceCode" id="cb12" data-code-line-numbers="20-23"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb12-1" class="hljs-ln-code"><a href="#cb12-1"></a><span class="fu">library</span>(RSelenium)</span>
+<p>Find the button “Pesquisar” and click it:</p>
+<div class="sourceCode" id="cb12" data-code-line-numbers="15-18"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb12-1" class="hljs-ln-code"><a href="#cb12-1"></a><span class="fu">library</span>(RSelenium)</span>
 <span id="cb12-2" class="hljs-ln-code"><a href="#cb12-2"></a></span>
 <span id="cb12-3" class="hljs-ln-code"><a href="#cb12-3"></a>link <span class="ot">&lt;-</span> <span class="st">"http://www.inci.org.br/acervodigital/livros.php"</span></span>
 <span id="cb12-4" class="hljs-ln-code"><a href="#cb12-4"></a></span>
 <span id="cb12-5" class="hljs-ln-code"><a href="#cb12-5"></a><span class="co"># Automatically go the website</span></span>
-<span id="cb12-6" class="hljs-ln-code"><a href="#cb12-6"></a>driver <span class="ot">&lt;-</span> <span class="fu">rsDriver</span>(<span class="at">browser =</span> <span class="fu">c</span>(<span class="st">"firefox"</span>))</span>
+<span id="cb12-6" class="hljs-ln-code"><a href="#cb12-6"></a>driver <span class="ot">&lt;-</span> <span class="fu">rsDriver</span>(<span class="at">browser =</span> <span class="fu">c</span>(<span class="st">"firefox"</span>), <span class="at">chromever =</span> <span class="cn">NULL</span>)</span>
 <span id="cb12-7" class="hljs-ln-code"><a href="#cb12-7"></a>remote_driver <span class="ot">&lt;-</span> driver[[<span class="st">"client"</span>]]</span>
 <span id="cb12-8" class="hljs-ln-code"><a href="#cb12-8"></a>remote_driver<span class="sc">$</span><span class="fu">navigate</span>(link)</span>
 <span id="cb12-9" class="hljs-ln-code"><a href="#cb12-9"></a></span>
@@ -859,22 +808,17 @@ Etienne Bacher
 <span id="cb12-15" class="hljs-ln-code"><a href="#cb12-15"></a><span class="co"># Find the button "Pesquisar" and click it</span></span>
 <span id="cb12-16" class="hljs-ln-code"><a href="#cb12-16"></a>remote_driver<span class="sc">$</span></span>
 <span id="cb12-17" class="hljs-ln-code"><a href="#cb12-17"></a>  <span class="fu">findElement</span>(<span class="at">using =</span> <span class="st">'name'</span>, <span class="at">value =</span> <span class="st">"Reset2"</span>)<span class="sc">$</span></span>
-<span id="cb12-18" class="hljs-ln-code"><a href="#cb12-18"></a>  <span class="fu">clickElement</span>()</span>
-<span id="cb12-19" class="hljs-ln-code"><a href="#cb12-19"></a></span>
-<span id="cb12-20" class="hljs-ln-code"><a href="#cb12-20"></a><span class="co"># Find the button "Ver Mais" and click it</span></span>
-<span id="cb12-21" class="hljs-ln-code"><a href="#cb12-21"></a>remote_driver<span class="sc">$</span></span>
-<span id="cb12-22" class="hljs-ln-code"><a href="#cb12-22"></a>  <span class="fu">findElement</span>(<span class="at">using =</span> <span class="st">'id'</span>, <span class="at">value =</span> <span class="st">"link_ver_detalhe"</span>)<span class="sc">$</span></span>
-<span id="cb12-23" class="hljs-ln-code"><a href="#cb12-23"></a>  <span class="fu">clickElement</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb12-18" class="hljs-ln-code"><a href="#cb12-18"></a>  <span class="fu">clickElement</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="make-an-example-4" class="slide level2" data-auto-animate="true">
+<section id="make-an-example-3" class="slide level2" data-auto-animate="true">
 <h2 data-id="quarto-animate-title">Make an example</h2>
-<p>Get the HTML that is displayed:</p>
-<div class="sourceCode" id="cb13" data-code-line-numbers="25-26"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb13-1" class="hljs-ln-code"><a href="#cb13-1"></a><span class="fu">library</span>(RSelenium)</span>
+<p>Find the button “Ver Mais” and click it:</p>
+<div class="sourceCode" id="cb13" data-code-line-numbers="20-23"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb13-1" class="hljs-ln-code"><a href="#cb13-1"></a><span class="fu">library</span>(RSelenium)</span>
 <span id="cb13-2" class="hljs-ln-code"><a href="#cb13-2"></a></span>
 <span id="cb13-3" class="hljs-ln-code"><a href="#cb13-3"></a>link <span class="ot">&lt;-</span> <span class="st">"http://www.inci.org.br/acervodigital/livros.php"</span></span>
 <span id="cb13-4" class="hljs-ln-code"><a href="#cb13-4"></a></span>
 <span id="cb13-5" class="hljs-ln-code"><a href="#cb13-5"></a><span class="co"># Automatically go the website</span></span>
-<span id="cb13-6" class="hljs-ln-code"><a href="#cb13-6"></a>driver <span class="ot">&lt;-</span> <span class="fu">rsDriver</span>(<span class="at">browser =</span> <span class="fu">c</span>(<span class="st">"firefox"</span>))</span>
+<span id="cb13-6" class="hljs-ln-code"><a href="#cb13-6"></a>driver <span class="ot">&lt;-</span> <span class="fu">rsDriver</span>(<span class="at">browser =</span> <span class="fu">c</span>(<span class="st">"firefox"</span>), <span class="at">chromever =</span> <span class="cn">NULL</span>)</span>
 <span id="cb13-7" class="hljs-ln-code"><a href="#cb13-7"></a>remote_driver <span class="ot">&lt;-</span> driver[[<span class="st">"client"</span>]]</span>
 <span id="cb13-8" class="hljs-ln-code"><a href="#cb13-8"></a>remote_driver<span class="sc">$</span><span class="fu">navigate</span>(link)</span>
 <span id="cb13-9" class="hljs-ln-code"><a href="#cb13-9"></a></span>
@@ -891,20 +835,17 @@ Etienne Bacher
 <span id="cb13-20" class="hljs-ln-code"><a href="#cb13-20"></a><span class="co"># Find the button "Ver Mais" and click it</span></span>
 <span id="cb13-21" class="hljs-ln-code"><a href="#cb13-21"></a>remote_driver<span class="sc">$</span></span>
 <span id="cb13-22" class="hljs-ln-code"><a href="#cb13-22"></a>  <span class="fu">findElement</span>(<span class="at">using =</span> <span class="st">'id'</span>, <span class="at">value =</span> <span class="st">"link_ver_detalhe"</span>)<span class="sc">$</span></span>
-<span id="cb13-23" class="hljs-ln-code"><a href="#cb13-23"></a>  <span class="fu">clickElement</span>()</span>
-<span id="cb13-24" class="hljs-ln-code"><a href="#cb13-24"></a></span>
-<span id="cb13-25" class="hljs-ln-code"><a href="#cb13-25"></a><span class="co"># Get the HTML that is displayed in the modal</span></span>
-<span id="cb13-26" class="hljs-ln-code"><a href="#cb13-26"></a>x <span class="ot">&lt;-</span> remote_driver<span class="sc">$</span><span class="fu">getPageSource</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb13-23" class="hljs-ln-code"><a href="#cb13-23"></a>  <span class="fu">clickElement</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
-<section id="make-an-example-5" class="slide level2" data-auto-animate="true">
+<section id="make-an-example-4" class="slide level2" data-auto-animate="true">
 <h2 data-id="quarto-animate-title">Make an example</h2>
-<p>Exit the modal by pressing “Escape”:</p>
-<div class="sourceCode" id="cb14" data-code-line-numbers="28-31"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb14-1" class="hljs-ln-code"><a href="#cb14-1"></a><span class="fu">library</span>(RSelenium)</span>
+<p>Get the HTML that is displayed:</p>
+<div class="sourceCode" id="cb14" data-code-line-numbers="25-26"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb14-1" class="hljs-ln-code"><a href="#cb14-1"></a><span class="fu">library</span>(RSelenium)</span>
 <span id="cb14-2" class="hljs-ln-code"><a href="#cb14-2"></a></span>
 <span id="cb14-3" class="hljs-ln-code"><a href="#cb14-3"></a>link <span class="ot">&lt;-</span> <span class="st">"http://www.inci.org.br/acervodigital/livros.php"</span></span>
 <span id="cb14-4" class="hljs-ln-code"><a href="#cb14-4"></a></span>
 <span id="cb14-5" class="hljs-ln-code"><a href="#cb14-5"></a><span class="co"># Automatically go the website</span></span>
-<span id="cb14-6" class="hljs-ln-code"><a href="#cb14-6"></a>driver <span class="ot">&lt;-</span> <span class="fu">rsDriver</span>(<span class="at">browser =</span> <span class="fu">c</span>(<span class="st">"firefox"</span>))</span>
+<span id="cb14-6" class="hljs-ln-code"><a href="#cb14-6"></a>driver <span class="ot">&lt;-</span> <span class="fu">rsDriver</span>(<span class="at">browser =</span> <span class="fu">c</span>(<span class="st">"firefox"</span>), <span class="at">chromever =</span> <span class="cn">NULL</span>)</span>
 <span id="cb14-7" class="hljs-ln-code"><a href="#cb14-7"></a>remote_driver <span class="ot">&lt;-</span> driver[[<span class="st">"client"</span>]]</span>
 <span id="cb14-8" class="hljs-ln-code"><a href="#cb14-8"></a>remote_driver<span class="sc">$</span><span class="fu">navigate</span>(link)</span>
 <span id="cb14-9" class="hljs-ln-code"><a href="#cb14-9"></a></span>
@@ -924,12 +865,42 @@ Etienne Bacher
 <span id="cb14-23" class="hljs-ln-code"><a href="#cb14-23"></a>  <span class="fu">clickElement</span>()</span>
 <span id="cb14-24" class="hljs-ln-code"><a href="#cb14-24"></a></span>
 <span id="cb14-25" class="hljs-ln-code"><a href="#cb14-25"></a><span class="co"># Get the HTML that is displayed in the modal</span></span>
-<span id="cb14-26" class="hljs-ln-code"><a href="#cb14-26"></a>x <span class="ot">&lt;-</span> remote_driver<span class="sc">$</span><span class="fu">getPageSource</span>()</span>
-<span id="cb14-27" class="hljs-ln-code"><a href="#cb14-27"></a></span>
-<span id="cb14-28" class="hljs-ln-code"><a href="#cb14-28"></a><span class="co"># Exit the modal by pressing "Escape"</span></span>
-<span id="cb14-29" class="hljs-ln-code"><a href="#cb14-29"></a>remote_driver<span class="sc">$</span></span>
-<span id="cb14-30" class="hljs-ln-code"><a href="#cb14-30"></a>  <span class="fu">findElement</span>(<span class="at">using =</span> <span class="st">"xpath"</span>, <span class="at">value =</span> <span class="st">"/html/body"</span>)<span class="sc">$</span></span>
-<span id="cb14-31" class="hljs-ln-code"><a href="#cb14-31"></a>  <span class="fu">sendKeysToElement</span>(<span class="fu">list</span>(<span class="at">key =</span> <span class="st">"escape"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb14-26" class="hljs-ln-code"><a href="#cb14-26"></a>x <span class="ot">&lt;-</span> remote_driver<span class="sc">$</span><span class="fu">getPageSource</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="make-an-example-5" class="slide level2" data-auto-animate="true">
+<h2 data-id="quarto-animate-title">Make an example</h2>
+<p>Exit the modal by pressing “Escape”:</p>
+<div class="sourceCode" id="cb15" data-code-line-numbers="28-31"><pre class="sourceCode numberSource r number-lines code-with-copy" data-id="quarto-animate-code"><code class="sourceCode r hljs"><span id="cb15-1" class="hljs-ln-code"><a href="#cb15-1"></a><span class="fu">library</span>(RSelenium)</span>
+<span id="cb15-2" class="hljs-ln-code"><a href="#cb15-2"></a></span>
+<span id="cb15-3" class="hljs-ln-code"><a href="#cb15-3"></a>link <span class="ot">&lt;-</span> <span class="st">"http://www.inci.org.br/acervodigital/livros.php"</span></span>
+<span id="cb15-4" class="hljs-ln-code"><a href="#cb15-4"></a></span>
+<span id="cb15-5" class="hljs-ln-code"><a href="#cb15-5"></a><span class="co"># Automatically go the website</span></span>
+<span id="cb15-6" class="hljs-ln-code"><a href="#cb15-6"></a>driver <span class="ot">&lt;-</span> <span class="fu">rsDriver</span>(<span class="at">browser =</span> <span class="fu">c</span>(<span class="st">"firefox"</span>), <span class="at">chromever =</span> <span class="cn">NULL</span>)</span>
+<span id="cb15-7" class="hljs-ln-code"><a href="#cb15-7"></a>remote_driver <span class="ot">&lt;-</span> driver[[<span class="st">"client"</span>]]</span>
+<span id="cb15-8" class="hljs-ln-code"><a href="#cb15-8"></a>remote_driver<span class="sc">$</span><span class="fu">navigate</span>(link)</span>
+<span id="cb15-9" class="hljs-ln-code"><a href="#cb15-9"></a></span>
+<span id="cb15-10" class="hljs-ln-code"><a href="#cb15-10"></a><span class="co"># Fill the nationality field and click on "Validate"</span></span>
+<span id="cb15-11" class="hljs-ln-code"><a href="#cb15-11"></a>remote_driver<span class="sc">$</span></span>
+<span id="cb15-12" class="hljs-ln-code"><a href="#cb15-12"></a>  <span class="fu">findElement</span>(<span class="at">using =</span> <span class="st">"id"</span>, <span class="at">value =</span> <span class="st">"nacionalidade"</span>)<span class="sc">$</span></span>
+<span id="cb15-13" class="hljs-ln-code"><a href="#cb15-13"></a>  <span class="fu">sendKeysToElement</span>(<span class="fu">list</span>(<span class="st">"PORTUGUESA"</span>))</span>
+<span id="cb15-14" class="hljs-ln-code"><a href="#cb15-14"></a></span>
+<span id="cb15-15" class="hljs-ln-code"><a href="#cb15-15"></a><span class="co"># Find the button "Pesquisar" and click it</span></span>
+<span id="cb15-16" class="hljs-ln-code"><a href="#cb15-16"></a>remote_driver<span class="sc">$</span></span>
+<span id="cb15-17" class="hljs-ln-code"><a href="#cb15-17"></a>  <span class="fu">findElement</span>(<span class="at">using =</span> <span class="st">'name'</span>, <span class="at">value =</span> <span class="st">"Reset2"</span>)<span class="sc">$</span></span>
+<span id="cb15-18" class="hljs-ln-code"><a href="#cb15-18"></a>  <span class="fu">clickElement</span>()</span>
+<span id="cb15-19" class="hljs-ln-code"><a href="#cb15-19"></a></span>
+<span id="cb15-20" class="hljs-ln-code"><a href="#cb15-20"></a><span class="co"># Find the button "Ver Mais" and click it</span></span>
+<span id="cb15-21" class="hljs-ln-code"><a href="#cb15-21"></a>remote_driver<span class="sc">$</span></span>
+<span id="cb15-22" class="hljs-ln-code"><a href="#cb15-22"></a>  <span class="fu">findElement</span>(<span class="at">using =</span> <span class="st">'id'</span>, <span class="at">value =</span> <span class="st">"link_ver_detalhe"</span>)<span class="sc">$</span></span>
+<span id="cb15-23" class="hljs-ln-code"><a href="#cb15-23"></a>  <span class="fu">clickElement</span>()</span>
+<span id="cb15-24" class="hljs-ln-code"><a href="#cb15-24"></a></span>
+<span id="cb15-25" class="hljs-ln-code"><a href="#cb15-25"></a><span class="co"># Get the HTML that is displayed in the modal</span></span>
+<span id="cb15-26" class="hljs-ln-code"><a href="#cb15-26"></a>x <span class="ot">&lt;-</span> remote_driver<span class="sc">$</span><span class="fu">getPageSource</span>()</span>
+<span id="cb15-27" class="hljs-ln-code"><a href="#cb15-27"></a></span>
+<span id="cb15-28" class="hljs-ln-code"><a href="#cb15-28"></a><span class="co"># Exit the modal by pressing "Escape"</span></span>
+<span id="cb15-29" class="hljs-ln-code"><a href="#cb15-29"></a>remote_driver<span class="sc">$</span></span>
+<span id="cb15-30" class="hljs-ln-code"><a href="#cb15-30"></a>  <span class="fu">findElement</span>(<span class="at">using =</span> <span class="st">"xpath"</span>, <span class="at">value =</span> <span class="st">"/html/body"</span>)<span class="sc">$</span></span>
+<span id="cb15-31" class="hljs-ln-code"><a href="#cb15-31"></a>  <span class="fu">sendKeysToElement</span>(<span class="fu">list</span>(<span class="at">key =</span> <span class="st">"escape"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </section>
 <section id="next-steps" class="slide level2">
 <h2>Next steps</h2>
@@ -949,11 +920,9 @@ Etienne Bacher
 <section id="and-then-what" class="slide level2">
 <h2>And then what?</h2>
 <p><br> <br></p>
-<p>If everything goes well, you have collected a lot of <code>.html</code> files.</p>
+<p>If everything goes well, we have collected a lot of <code>.html</code> files.</p>
 <p><br></p>
 <p>To clean them, we don’t need <code>RSelenium</code> or an internet connection. These are just text files, they are not “tied” to the website anymore.</p>
-<p><br></p>
-<p>It is also useful to keep them for reproducibility (same as when you keep the raw datasets in your project).</p>
 </section></section>
 <section>
 <section id="summary" class="title-slide slide level1 center">
@@ -968,36 +937,18 @@ Etienne Bacher
 </ol>
 <ul>
 <li>APIs, packages</li>
-<li>static webscraping</li>
+<li>static webscraping is usually faster</li>
 <li>custom <code>POST</code> requests</li>
 </ul>
 <div class="fragment">
 <ol start="2" type="1">
-<li>In my (limited) experience:</li>
+<li>Extensions:</li>
 </ol>
 <ul>
-<li>1/4 of the time is spent on making a small example work;</li>
-<li>1/4 of the time is spent on generalising this example (loops, etc.)</li>
-<li><strong>1/2</strong> of the time is spent on debugging.</li>
+<li>parallelize <code>RSelenium</code> with <a href="https://github.com/till-tietz/parsel" class="external" target="_blank"><code>parsel</code></a> (<strong>never tried</strong>)</li>
+<li>there’s <a href="https://github.com/tidyverse/rvest/pull/362" class="external" target="_blank">some WIP</a> in <code>rvest</code> to enable this kind of dynamic scraping</li>
 </ul>
-<p><br></p>
 </div>
-<div class="fragment">
-<p><strong><em>Catching errors and recording the scraping process IS important.</em></strong></p>
-</div>
-</section>
-<section id="parallelization" class="slide level2">
-<h2>Parallelization</h2>
-<p><br></p>
-<p>Use parallelization to open several browsers at the same time and scrape the data faster.</p>
-<p><br></p>
-<p><i class="fa-solid fa-triangle-exclamation" aria-hidden="true"></i> &nbsp; I never tested this, and there could be some issues (browser crashes, etc.)</p>
-<p><br></p>
-<p>If you want to explore it:</p>
-<ul>
-<li><p><a href="https://appsilon.com/webscraping-dynamic-websites-with-r/" class="external" target="_blank">article by Appsilon</a> (at the end)</p></li>
-<li><p><a href="https://ivanmillanes.netlify.app/post/2020-06-30-webscraping-with-rselenium-and-rvest/#parallel-framework" class="external" target="_blank">article by Ivan Millanes</a></p></li>
-</ul>
 </section>
 <section id="ethics" class="slide level2">
 <h2>Ethics</h2>
@@ -1027,21 +978,21 @@ Etienne Bacher
 </div>
 </div>
 </div>
-</section></section>
-<section id="good-resources" class="title-slide slide level1 center">
-<h1>Good resources</h1>
+</section>
+<section id="good-resources" class="slide level2">
+<h2>Good resources</h2>
 <p><br></p>
 <p>Article from Appsilon:</p>
 <p><a href="https://appsilon.com/webscraping-dynamic-websites-with-r/" class="external" target="_blank">https://appsilon.com/webscraping-dynamic-websites-with-r/</a></p>
 <p><br></p>
 <p>Article from Ivan Millanes:</p>
 <p><a href="https://ivanmillanes.netlify.app/post/2020-06-30-webscraping-with-rselenium-and-rvest/" class="external" target="_blank">https://ivanmillanes.netlify.app/post/2020-06-30-webscraping-with-rselenium-and-rvest/</a></p>
-</section>
-
+</section></section>
 <section id="thanks" class="title-slide slide level1 center">
 <h1>Thanks!</h1>
-<p><br></p>
-<p>More complete presentation (100+ slides): <a href="https://www.rselenium-teaching.etiennebacher.com" class="external" target="_blank">https://www.rselenium-teaching.etiennebacher.com</a>:</p>
+<p><br> <br></p>
+<p>More complete presentation (100+ slides):</p>
+<p><a href="https://www.rselenium-teaching.etiennebacher.com" class="external" target="_blank">https://www.rselenium-teaching.etiennebacher.com</a>:</p>
 <ul>
 <li><code>RSelenium</code> installation issues</li>
 <li>error handling</li>
@@ -1050,7 +1001,7 @@ Etienne Bacher
 </section>
 
 <section>
-<section id="appendix" class="title-slide slide level1 center">
+<section id="appendix" class="title-slide slide level1 appendix center">
 <h1>Appendix</h1>
 
 </section>
@@ -1058,31 +1009,31 @@ Etienne Bacher
 <h2>Appendix</h2>
 <p>For reference, here’s the code to extract the list of contributors:</p>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1"></a><span class="fu">library</span>(rvest)</span>
-<span id="cb15-2"><a href="#cb15-2"></a></span>
-<span id="cb15-3"><a href="#cb15-3"></a>html <span class="ot">&lt;-</span> <span class="fu">read_html</span>(<span class="st">"contributors.html"</span>) </span>
-<span id="cb15-4"><a href="#cb15-4"></a></span>
-<span id="cb15-5"><a href="#cb15-5"></a>bullet_points <span class="ot">&lt;-</span> html <span class="sc">%&gt;%</span> </span>
-<span id="cb15-6"><a href="#cb15-6"></a>  <span class="fu">html_elements</span>(<span class="at">css =</span> <span class="st">"div.col-xs-12 &gt; ul &gt; li"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb15-7"><a href="#cb15-7"></a>  <span class="fu">html_text</span>()</span>
-<span id="cb15-8"><a href="#cb15-8"></a></span>
-<span id="cb15-9"><a href="#cb15-9"></a>blockquote <span class="ot">&lt;-</span> html <span class="sc">%&gt;%</span> </span>
-<span id="cb15-10"><a href="#cb15-10"></a>  <span class="fu">html_elements</span>(<span class="at">css =</span> <span class="st">"div.col-xs-12.col-sm-7 &gt; blockquote"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb15-11"><a href="#cb15-11"></a>  <span class="fu">html_text</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb15-12"><a href="#cb15-12"></a>  <span class="fu">strsplit</span>(., <span class="at">split =</span> <span class="st">", "</span>)</span>
-<span id="cb15-13"><a href="#cb15-13"></a></span>
-<span id="cb15-14"><a href="#cb15-14"></a>blockquote <span class="ot">&lt;-</span> blockquote[[<span class="dv">1</span>]] <span class="sc">%&gt;%</span> </span>
-<span id="cb15-15"><a href="#cb15-15"></a>  <span class="fu">gsub</span>(<span class="st">"</span><span class="sc">\\</span><span class="st">r|</span><span class="sc">\\</span><span class="st">n|</span><span class="sc">\\</span><span class="st">.|and"</span>, <span class="st">""</span>, .)</span>
-<span id="cb15-16"><a href="#cb15-16"></a></span>
-<span id="cb15-17"><a href="#cb15-17"></a>others <span class="ot">&lt;-</span> html <span class="sc">%&gt;%</span> </span>
-<span id="cb15-18"><a href="#cb15-18"></a>  <span class="fu">html_elements</span>(<span class="at">xpath =</span> <span class="st">"/html/body/div/div[1]/div[2]/p[5]"</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb15-19"><a href="#cb15-19"></a>  <span class="fu">html_text</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb15-20"><a href="#cb15-20"></a>  <span class="fu">strsplit</span>(., <span class="at">split =</span> <span class="st">", "</span>)</span>
-<span id="cb15-21"><a href="#cb15-21"></a></span>
-<span id="cb15-22"><a href="#cb15-22"></a>others <span class="ot">&lt;-</span> others[[<span class="dv">1</span>]] <span class="sc">%&gt;%</span> </span>
-<span id="cb15-23"><a href="#cb15-23"></a>  <span class="fu">gsub</span>(<span class="st">"</span><span class="sc">\\</span><span class="st">r|</span><span class="sc">\\</span><span class="st">n|</span><span class="sc">\\</span><span class="st">.|and"</span>, <span class="st">""</span>, .)</span>
-<span id="cb15-24"><a href="#cb15-24"></a></span>
-<span id="cb15-25"><a href="#cb15-25"></a>all_contributors <span class="ot">&lt;-</span> <span class="fu">c</span>(bullet_points, blockquote, others)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1"></a><span class="fu">library</span>(rvest)</span>
+<span id="cb16-2"><a href="#cb16-2"></a></span>
+<span id="cb16-3"><a href="#cb16-3"></a>html <span class="ot">&lt;-</span> <span class="fu">read_html</span>(<span class="st">"contributors.html"</span>) </span>
+<span id="cb16-4"><a href="#cb16-4"></a></span>
+<span id="cb16-5"><a href="#cb16-5"></a>bullet_points <span class="ot">&lt;-</span> html <span class="sc">%&gt;%</span> </span>
+<span id="cb16-6"><a href="#cb16-6"></a>  <span class="fu">html_elements</span>(<span class="at">css =</span> <span class="st">"div.col-xs-12 &gt; ul &gt; li"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb16-7"><a href="#cb16-7"></a>  <span class="fu">html_text</span>()</span>
+<span id="cb16-8"><a href="#cb16-8"></a></span>
+<span id="cb16-9"><a href="#cb16-9"></a>blockquote <span class="ot">&lt;-</span> html <span class="sc">%&gt;%</span> </span>
+<span id="cb16-10"><a href="#cb16-10"></a>  <span class="fu">html_elements</span>(<span class="at">css =</span> <span class="st">"div.col-xs-12.col-sm-7 &gt; blockquote"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb16-11"><a href="#cb16-11"></a>  <span class="fu">html_text</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb16-12"><a href="#cb16-12"></a>  <span class="fu">strsplit</span>(., <span class="at">split =</span> <span class="st">", "</span>)</span>
+<span id="cb16-13"><a href="#cb16-13"></a></span>
+<span id="cb16-14"><a href="#cb16-14"></a>blockquote <span class="ot">&lt;-</span> blockquote[[<span class="dv">1</span>]] <span class="sc">%&gt;%</span> </span>
+<span id="cb16-15"><a href="#cb16-15"></a>  <span class="fu">gsub</span>(<span class="st">"</span><span class="sc">\\</span><span class="st">r|</span><span class="sc">\\</span><span class="st">n|</span><span class="sc">\\</span><span class="st">.|and"</span>, <span class="st">""</span>, .)</span>
+<span id="cb16-16"><a href="#cb16-16"></a></span>
+<span id="cb16-17"><a href="#cb16-17"></a>others <span class="ot">&lt;-</span> html <span class="sc">%&gt;%</span> </span>
+<span id="cb16-18"><a href="#cb16-18"></a>  <span class="fu">html_elements</span>(<span class="at">xpath =</span> <span class="st">"/html/body/div/div[1]/div[2]/p[5]"</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb16-19"><a href="#cb16-19"></a>  <span class="fu">html_text</span>() <span class="sc">%&gt;%</span> </span>
+<span id="cb16-20"><a href="#cb16-20"></a>  <span class="fu">strsplit</span>(., <span class="at">split =</span> <span class="st">", "</span>)</span>
+<span id="cb16-21"><a href="#cb16-21"></a></span>
+<span id="cb16-22"><a href="#cb16-22"></a>others <span class="ot">&lt;-</span> others[[<span class="dv">1</span>]] <span class="sc">%&gt;%</span> </span>
+<span id="cb16-23"><a href="#cb16-23"></a>  <span class="fu">gsub</span>(<span class="st">"</span><span class="sc">\\</span><span class="st">r|</span><span class="sc">\\</span><span class="st">n|</span><span class="sc">\\</span><span class="st">.|and"</span>, <span class="st">""</span>, .)</span>
+<span id="cb16-24"><a href="#cb16-24"></a></span>
+<span id="cb16-25"><a href="#cb16-25"></a>all_contributors <span class="ot">&lt;-</span> <span class="fu">c</span>(bullet_points, blockquote, others)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
 <section id="appendix-1" class="slide level2">
@@ -1154,7 +1105,7 @@ Etienne Bacher
  collate  English_Europe.utf8
  ctype    English_Europe.utf8
  tz       Europe/Paris
- date     2023-03-11
+ date     2023-03-13
  pandoc   3.1 @ C:/Users/etienne/AppData/Local/Pandoc/ (via rmarkdown)
 
 ─ Packages ───────────────────────────────────────────────────────────────────
