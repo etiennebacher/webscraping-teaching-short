@@ -15,6 +15,7 @@ format:
    auto-animate-duration: 0.8
    code-copy: true
    slide-number: true
+   filters: [custom.lua]
    
 execute:
   eval: false
@@ -704,9 +705,9 @@ More complete presentation (100+ slides):
 
 
 
-# Appendix {.appendix visibility="uncounted"}
+# Appendix {.appendix}
 
-## Appendix {#contributors-results visibility="uncounted"}
+## Appendix {#contributors-results}
 
 For reference, here's the code to extract the list of contributors:
 
@@ -739,7 +740,7 @@ all_contributors <- c(bullet_points, blockquote, others)
 ```
 
 
-## Appendix {visibility="uncounted"}
+## Appendix 
 
 ```{r appendix, eval=TRUE, echo = FALSE}
 ```
@@ -752,7 +753,7 @@ all_contributors[1:136]
 
 
 
-## Session information {visibility="uncounted"}
+## Session information 
 
 <br>
 
