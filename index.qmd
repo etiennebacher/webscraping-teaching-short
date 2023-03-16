@@ -141,22 +141,20 @@ looking at their URL.
 
 <br> <br> <br> <br> 
 
-Static webscraping can be challenging: need to have good error handling, the HTML 
-itself can be hard to clean, etc.
+In dynamic pages, there's **no obvious way to see that the inputs are
+different**.
 
-. . .
+<br> <br> 
 
-<br> 
-
-But in dynamic pages, there's no obvious way to see that the inputs are
-different, so it seems that the only way to get the data is to go manually through
-all pages.
+So it seems that the only way to get the data is to go manually through all pages.
 
 
 
 # (R)Selenium
 
 ## Idea
+
+<br>
 
 Idea: control the browser from the command line.
 
@@ -676,22 +674,6 @@ For static webscraping, check out the package [`polite`](https://dmi3kno.github.
 :::
 
 
-
-## Good resources
-
-<br>
-
-Article from Appsilon: 
-
-[https://appsilon.com/webscraping-dynamic-websites-with-r/](https://appsilon.com/webscraping-dynamic-websites-with-r/){.external target="_blank"}
-
-<br>
-
-Article from Ivan Millanes:
-
-[https://ivanmillanes.netlify.app/post/2020-06-30-webscraping-with-rselenium-and-rvest/](https://ivanmillanes.netlify.app/post/2020-06-30-webscraping-with-rselenium-and-rvest/){.external target="_blank"}
-
-
 # Thanks!
 
 <br>
@@ -704,8 +686,6 @@ More complete presentation (100+ slides):
 * `RSelenium` installation issues
 * error handling
 * more details in general
-
-
 
 
 
