@@ -589,6 +589,11 @@ remote_driver$
 ```
 
 
+## Output
+
+{{< video demo_selenium.mp4 >}}
+
+
 ## Next steps
 
 <br><br>
