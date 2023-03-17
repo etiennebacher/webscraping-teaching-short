@@ -290,6 +290,15 @@ This requires two things:
 1.  find the element
 2.  click on it
 
+. . .
+
+<br>
+
+How can we find an element?
+
+* humans -> eyes
+* computers -> HTML/CSS
+
 ---
 
 <br>
@@ -677,7 +686,6 @@ For static webscraping, check out the package [`polite`](https://dmi3kno.github.
 # Thanks!
 
 <br>
-<br>
 
 More complete presentation (100+ slides):
 
@@ -686,6 +694,12 @@ More complete presentation (100+ slides):
 * `RSelenium` installation issues
 * error handling
 * more details in general
+
+<br>
+
+Other presentation on some good practices with R:
+
+* [https://www.good-practices.etiennebacher.com](https://www.good-practices.etiennebacher.com){.external target="_blank"}
 
 
 
